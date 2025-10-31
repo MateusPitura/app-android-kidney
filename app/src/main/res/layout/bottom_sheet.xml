@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="16dp"
+        android:text="Editar quantidade"
+        android:textColor="@color/black"
+        android:textSize="16dp" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="5"
+        android:orientation="horizontal"
+        android:rowCount="1">
+
+        <ImageButton
+            android:id="@+id/amount_up_1000"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_control_key" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/amount_up_100"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_control_key" />
+
+        <ImageButton
+            android:id="@+id/amount_up_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_control_key" />
+
+        <ImageButton
+            android:id="@+id/amount_up_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_control_key" />
+
+        <TextView
+            android:id="@+id/amount_value_1000"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="32dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="."
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="32dp" />
+
+        <TextView
+            android:id="@+id/amount_value_100"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="32dp" />
+
+        <TextView
+            android:id="@+id/amount_value_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="32dp" />
+
+        <TextView
+            android:id="@+id/amount_value_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="32dp" />
+
+        <ImageButton
+            android:id="@+id/amount_down_1000"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_arrow_down" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/amount_down_100"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_arrow_down" />
+
+        <ImageButton
+            android:id="@+id/amount_down_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_arrow_down" />
+
+        <ImageButton
+            android:id="@+id/amount_down_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_arrow_down" />
+
+    </GridLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingVertical="16dp"
+        android:text="Editar horário"
+        android:textColor="@color/black"
+        android:textSize="16dp" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="5"
+        android:orientation="horizontal"
+        android:rowCount="1">
+
+        <ImageButton
+            android:id="@+id/hour_up_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_control_key" />
+
+        <ImageButton
+            android:id="@+id/hour_up_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_control_key" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/minute_up_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_control_key" />
+
+
+        <ImageButton
+            android:id="@+id/minute_up_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_control_key" />
+
+        <TextView
+            android:id="@+id/hour_value_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="32dp" />
+
+        <TextView
+            android:id="@+id/hour_value_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="32dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="32dp" />
+
+        <TextView
+            android:id="@+id/minute_value_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="32dp" />
+
+        <TextView
+            android:id="@+id/minute_value_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:text="0"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="32dp" />
+
+        <ImageButton
+            android:id="@+id/hour_down_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_arrow_down" />
+
+        <ImageButton
+            android:id="@+id/hour_down_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_arrow_down" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/minute_down_10"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_arrow_down" />
+
+        <ImageButton
+            android:id="@+id/minute_down_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_marginHorizontal="8dp"
+            android:background="@android:color/transparent"
+            android:padding="4dp"
+            android:scaleType="center"
+            android:src="@drawable/keyboard_arrow_down" />
+
+    </GridLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="8dp"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/ripple_button_shadow_yellow"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="Salvar"
+            android:textAllCaps="false"
+            android:textColor="@color/dark_yellow"
+            android:textSize="16dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/deleteButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/solid_shadown_red"
+            android:elevation="0dp"
+            android:stateListAnimator="@null"
+            android:text="Remover"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="16dp" />
+
+        <Button
+            android:id="@+id/closeButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="8dp"
+            android:background="@android:color/transparent"
+            android:text="Cancelar"
+            android:textColor="@color/dark_yellow"
+            android:textSize="16dp" />
+        >
+    </LinearLayout>
+</LinearLayout>

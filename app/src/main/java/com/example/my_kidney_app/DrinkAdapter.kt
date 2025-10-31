@@ -12,7 +12,8 @@ import java.util.Locale
 
 class DrinkAdapter(
     private val context: Context,
-    private val drinks: List<Drink>
+    private val drinks: List<Drink>,
+    private val onItemClick: (Drink) -> Unit
 ) : ArrayAdapter<Drink>(context, 0, drinks) {
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -21,14 +22,18 @@ class DrinkAdapter(
 
         val drink = drinks[position]
 
-        val tvMilliliters = view.findViewById<TextView>(R.id.milliliters)
-        val tvTime = view.findViewById<TextView>(R.id.time)
+        val milliliters = view.findViewById<TextView>(R.id.milliliters)
+        val time = view.findViewById<TextView>(R.id.time)
 
-        tvMilliliters.text = "${drink.milliliters} ml"
+        milliliters.text = "${drink.milliliters} ml"
 
-        val time = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val timeParsed = SimpleDateFormat("HH:mm", Locale.getDefault())
             .format(Date(drink.timestamp))
-        tvTime.text = time
+        time.text = timeParsed
+
+        view.setOnClickListener {
+            onItemClick(drink)
+        }
 
         return view
     }

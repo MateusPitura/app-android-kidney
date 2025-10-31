@@ -6,4 +6,12 @@
     </style>
 
     <style name="Theme.Mykidneyapp" parent="Base.Theme.Mykidneyapp" />
+
+    <!--  Change background color of bottom sheet  -->
+    <style name="MyBottomSheetDialogTheme" parent="Theme.Material3.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/MyCustomBottomSheetStyle</item>
+    </style>
+    <style name="MyCustomBottomSheetStyle" parent="Widget.Material3.BottomSheet.Modal">
+        <item name="android:backgroundTint">@color/light_yellow</item>
+    </style>
 </resources>

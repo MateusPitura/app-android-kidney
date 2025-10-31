@@ -9,6 +9,10 @@ import kotlinx.coroutines.flow.Flow
 interface DrinkDao {
     @Insert
     suspend fun insert(obj: Drink)
-    @Query("SELECT * FROM drink ORDER BY timestamp DESC")
+    @Query("""
+        SELECT * FROM drink 
+        WHERE date(datetime(timestamp / 1000, 'unixepoch', 'localtime')) = date('now', 'localtime')
+        ORDER BY timestamp DESC  
+    """)
     fun getAll(): Flow<List<Drink>>
 }
