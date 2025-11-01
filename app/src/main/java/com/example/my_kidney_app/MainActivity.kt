@@ -11,6 +11,7 @@ import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -32,6 +33,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var deleteDrink: Button
     private lateinit var editDrink: Button
     private lateinit var rootView: ScrollView
+    private lateinit var amountBar: View
+    private lateinit var amountPercent: TextView
+    private lateinit var amountTotal: TextView
+    private lateinit var kidney: ImageView
 
     private val amountValues = arrayOf(
         R.id.amount_value_1000,
@@ -73,12 +78,14 @@ class MainActivity : AppCompatActivity() {
         db = AppDataBase.getDatabase(this)
 
         rootView = findViewById<ScrollView>(R.id.main)
-
-        val img = findViewById<ImageView>(R.id.kidney)
+        kidney = findViewById<ImageView>(R.id.kidney)
         addWater = findViewById<Button>(R.id.add_water)
         todayDrink = findViewById<ListView>(R.id.today_drinks)
+        amountBar = findViewById<View>(R.id.amount_bar)
+        amountPercent = findViewById<TextView>(R.id.amount_percent)
+        amountTotal = findViewById<TextView>(R.id.amount_total)
 
-        (img.drawable as? Animatable)?.start()
+        (kidney.drawable as? Animatable)?.start() // Inicia a animação dos olhos
 
         addWater.setOnClickListener {
             val newEntity = Drink(milliliters = 400)
@@ -94,6 +101,22 @@ class MainActivity : AppCompatActivity() {
             bottomSheet.dismiss()
         }
 
+        val amountBarParams = amountBar.layoutParams as ConstraintLayout.LayoutParams
+
+        lifecycleScope.launch {
+            db.drinkDao().getTodayAmount().collectLatest { amount ->
+                var percent = 0f
+                if (amount !== null) {
+                    percent = if (amount >= 2400) 1f else amount / 2400.toFloat() // 2400.toFloat() evita truncamento
+                }
+                amountBarParams.matchConstraintPercentWidth = percent
+                amountPercent.text = "${(percent * 100).toInt()}%"
+                amountTotal.text = "${amount ?: 0} / 2.400 ml"
+
+                amountBar.layoutParams = amountBarParams
+            }
+        }
+
         lifecycleScope.launch {
             db.drinkDao().getTodayDrinks().collectLatest { items ->
                 val adapter = DrinkAdapter(
@@ -103,7 +126,8 @@ class MainActivity : AppCompatActivity() {
                         val millilitersParsed = drink.milliliters.toString().padStart(4, '0')
                         for (i in amountValues.indices) {
                             val upButton = view.findViewById<ImageButton>(amountButtons[i])
-                            val downButton = view.findViewById<ImageButton>(amountButtons[i + 4])
+                            val downButton =
+                                view.findViewById<ImageButton>(amountButtons[i + 4])
                             val value = view.findViewById<TextView>(amountValues[i])
                             value.text = millilitersParsed[i].toString()
                             handleValue(upButton, value, 1, { v -> v < 9 })
@@ -136,14 +160,26 @@ class MainActivity : AppCompatActivity() {
                         deleteDrink.setOnClickListener {
                             lifecycleScope.launch {
                                 db.drinkDao().deleteById(drink.id)
-                                Snackbar.make(rootView, "Registro removido", Snackbar.LENGTH_LONG)
+                                Snackbar.make(
+                                    rootView,
+                                    "Registro removido",
+                                    Snackbar.LENGTH_LONG
+                                )
                                     .setAction("Desfazer") {
-                                        val newEntity = Drink(milliliters = drink.milliliters, timestamp = drink.timestamp)
+                                        val newEntity = Drink(
+                                            milliliters = drink.milliliters,
+                                            timestamp = drink.timestamp
+                                        )
                                         lifecycleScope.launch {
                                             db.drinkDao().insert(newEntity)
                                         }
                                     }
-                                    .setActionTextColor(ContextCompat.getColor(this@MainActivity, R.color.yellow))
+                                    .setActionTextColor(
+                                        ContextCompat.getColor(
+                                            this@MainActivity,
+                                            R.color.yellow
+                                        )
+                                    )
                                     .show()
                                 bottomSheet.dismiss()
                             }
@@ -152,18 +188,21 @@ class MainActivity : AppCompatActivity() {
                         editDrink = view.findViewById<Button>(R.id.editDrink)
                         editDrink.setOnClickListener {
                             var totalValue = ""
-                            for(i in amountValues.indices){
+                            for (i in amountValues.indices) {
                                 val value = view.findViewById<TextView>(amountValues[i])
                                 totalValue += value.text.toString()
                             }
 
                             val hourValue10 = view.findViewById<TextView>(R.id.hour_value_10)
                             val hourValue1 = view.findViewById<TextView>(R.id.hour_value_1)
-                            val minuteValue10 = view.findViewById<TextView>(R.id.minute_value_10)
+                            val minuteValue10 =
+                                view.findViewById<TextView>(R.id.minute_value_10)
                             val minuteValue1 = view.findViewById<TextView>(R.id.minute_value_1)
 
-                            val hour = hourValue10.text.toString().toInt() * 10 + hourValue1.text.toString().toInt()
-                            val minute = minuteValue10.text.toString().toInt() * 10 + minuteValue1.text.toString().toInt()
+                            val hour = hourValue10.text.toString()
+                                .toInt() * 10 + hourValue1.text.toString().toInt()
+                            val minute = minuteValue10.text.toString()
+                                .toInt() * 10 + minuteValue1.text.toString().toInt()
 
                             val calendar = Calendar.getInstance()
                             calendar.timeInMillis = drink.timestamp
@@ -171,7 +210,11 @@ class MainActivity : AppCompatActivity() {
                             calendar.set(Calendar.MINUTE, minute)
 
                             lifecycleScope.launch {
-                                val updatedDrink = Drink(id=drink.id, milliliters = totalValue.toInt(), timestamp = calendar.timeInMillis)
+                                val updatedDrink = Drink(
+                                    id = drink.id,
+                                    milliliters = totalValue.toInt(),
+                                    timestamp = calendar.timeInMillis
+                                )
                                 db.drinkDao().update(updatedDrink)
                                 bottomSheet.dismiss()
                             }

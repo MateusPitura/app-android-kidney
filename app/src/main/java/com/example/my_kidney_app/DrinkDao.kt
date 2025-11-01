@@ -17,6 +17,11 @@ interface DrinkDao {
         ORDER BY timestamp DESC  
     """)
     fun getTodayDrinks(): Flow<List<Drink>>
+    @Query("""
+        SELECT SUM(milliliters) FROM drink 
+        WHERE date(datetime(timestamp / 1000, 'unixepoch', 'localtime')) = date('now', 'localtime')
+    """)
+    fun getTodayAmount(): Flow<Int?>
     @Query("DELETE FROM drink WHERE id = :id")
     suspend fun deleteById(id: Int)
     @Update
