@@ -50,7 +50,6 @@ class EmptyTodayDrink : Fragment() {
             ) == PackageManager.PERMISSION_GRANTED
         ) {
             getLastLocation({ temperature ->
-                Utils().log(temperature.toString())
                 if (temperature !== null && temperature >= 30f) {
                     todayMessage.text =
                         "Hoje está um dia quente, com temperatura de $temperature°C! Beba mais água para manter-se hidratado"

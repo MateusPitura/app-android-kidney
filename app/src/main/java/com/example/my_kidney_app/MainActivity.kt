@@ -106,7 +106,7 @@ class MainActivity : AppCompatActivity() {
         todayDrink.emptyView = emptyView
 
         addWater.setOnClickListener {
-            val newEntity = Drink(milliliters = 400)
+            val newEntity = Drink(milliliters = 500)
             lifecycleScope.launch {
                 db.drinkDao().insert(newEntity)
             }
