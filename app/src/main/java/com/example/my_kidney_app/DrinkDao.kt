@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -18,4 +19,6 @@ interface DrinkDao {
     fun getTodayDrinks(): Flow<List<Drink>>
     @Query("DELETE FROM drink WHERE id = :id")
     suspend fun deleteById(id: Int)
+    @Update
+    suspend fun update(drink: Drink)
 }

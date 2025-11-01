@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var todayDrink: ListView
     private lateinit var addWater: Button
     private lateinit var deleteDrink: Button
+    private lateinit var editDrink: Button
     private lateinit var rootView: ScrollView
 
     private val amountValues = arrayOf(
@@ -143,6 +145,34 @@ class MainActivity : AppCompatActivity() {
                                     }
                                     .setActionTextColor(ContextCompat.getColor(this@MainActivity, R.color.yellow))
                                     .show()
+                                bottomSheet.dismiss()
+                            }
+                        }
+
+                        editDrink = view.findViewById<Button>(R.id.editDrink)
+                        editDrink.setOnClickListener {
+                            var totalValue = ""
+                            for(i in amountValues.indices){
+                                val value = view.findViewById<TextView>(amountValues[i])
+                                totalValue += value.text.toString()
+                            }
+
+                            val hourValue10 = view.findViewById<TextView>(R.id.hour_value_10)
+                            val hourValue1 = view.findViewById<TextView>(R.id.hour_value_1)
+                            val minuteValue10 = view.findViewById<TextView>(R.id.minute_value_10)
+                            val minuteValue1 = view.findViewById<TextView>(R.id.minute_value_1)
+
+                            val hour = hourValue10.text.toString().toInt() * 10 + hourValue1.text.toString().toInt()
+                            val minute = minuteValue10.text.toString().toInt() * 10 + minuteValue1.text.toString().toInt()
+
+                            val calendar = Calendar.getInstance()
+                            calendar.timeInMillis = drink.timestamp
+                            calendar.set(Calendar.HOUR_OF_DAY, hour)
+                            calendar.set(Calendar.MINUTE, minute)
+
+                            lifecycleScope.launch {
+                                val updatedDrink = Drink(id=drink.id, milliliters = totalValue.toInt(), timestamp = calendar.timeInMillis)
+                                db.drinkDao().update(updatedDrink)
                                 bottomSheet.dismiss()
                             }
                         }
