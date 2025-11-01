@@ -4,6 +4,7 @@ import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
@@ -24,16 +25,32 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: AppDataBase
     private lateinit var todayDrink: ListView
     private lateinit var addWater: Button
-
-    private lateinit var waterAmount1000: TextView
-    private lateinit var waterAmount100: TextView
-    private lateinit var waterAmount10: TextView
-    private lateinit var waterAmount1: TextView
-
-    private lateinit var hourValue10: TextView
-    private lateinit var hourValue1: TextView
-    private lateinit var minuteValue10: TextView
-    private lateinit var minuteValue1: TextView
+    private val amountValues = arrayOf(
+        R.id.amount_value_1000,
+        R.id.amount_value_100,
+        R.id.amount_value_10,
+        R.id.amount_value_1
+    )
+    private val amountButtons = arrayOf(
+        R.id.amount_up_1000,
+        R.id.amount_up_100,
+        R.id.amount_up_10,
+        R.id.amount_up_1,
+        R.id.amount_down_1000,
+        R.id.amount_down_100,
+        R.id.amount_down_10,
+        R.id.amount_down_1
+    )
+    private val timeValues = arrayOf(
+        R.id.minute_value_10,
+        R.id.minute_value_1
+    )
+    private val timeButtons = arrayOf(
+        R.id.minute_up_10,
+        R.id.minute_up_1,
+        R.id.minute_down_10,
+        R.id.minute_down_1
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,33 +90,72 @@ class MainActivity : AppCompatActivity() {
                     this@MainActivity,
                     items,
                     { drink ->
-                        waterAmount1000 = view.findViewById<TextView>(R.id.amount_value_1000)
-                        waterAmount100 = view.findViewById<TextView>(R.id.amount_value_100)
-                        waterAmount10 = view.findViewById<TextView>(R.id.amount_value_10)
-                        waterAmount1 = view.findViewById<TextView>(R.id.amount_value_1)
+                        val millilitersParsed = drink.milliliters.toString().padStart(4, '0')
+                        for (i in amountValues.indices) {
+                            val upButton = view.findViewById<ImageButton>(amountButtons[i])
+                            val downButton = view.findViewById<ImageButton>(amountButtons[i + 4])
+                            val value = view.findViewById<TextView>(amountValues[i])
+                            value.text = millilitersParsed[i].toString()
+                            handleValue(upButton, value, 1, { v -> v < 9 })
+                            handleValue(downButton, value, -1, { v -> v > 0 })
+                        }
 
-                        val str = drink.milliliters.toString().padStart(4, '0')
-                        waterAmount1000.text = str[0].toString()
-                        waterAmount100.text = str[1].toString()
-                        waterAmount10.text = str[2].toString()
-                        waterAmount1.text = str[3].toString()
+                        val timeParsed = SimpleDateFormat(
+                            "HHmm",
+                            Locale.getDefault()
+                        ).format(Date(drink.timestamp))
+                        for (i in timeValues.indices) {
+                            val upButton = view.findViewById<ImageButton>(timeButtons[i])
+                            val downButton = view.findViewById<ImageButton>(timeButtons[i + 2])
+                            val value = view.findViewById<TextView>(timeValues[i])
+                            value.text = timeParsed[i + 2].toString()
+                            handleValue(upButton, value, 1, { v -> v < (if (i == 0) 5 else 9) })
+                            handleValue(downButton, value, -1, { v -> v > 0 })
+                        }
 
-                        hourValue10 = view.findViewById<TextView>(R.id.hour_value_10)
-                        hourValue1 = view.findViewById<TextView>(R.id.hour_value_1)
-                        minuteValue10 = view.findViewById<TextView>(R.id.minute_value_10)
-                        minuteValue1 = view.findViewById<TextView>(R.id.minute_value_1)
-
-                        val timeParsed = SimpleDateFormat("HHmm", Locale.getDefault()).format(Date(drink.timestamp))
-                        hourValue10.text = timeParsed[0].toString()
-                        hourValue1.text = timeParsed[1].toString()
-                        minuteValue10.text = timeParsed[2].toString()
-                        minuteValue1.text = timeParsed[3].toString()
+                        val hourValue10 = view.findViewById<TextView>(R.id.hour_value_10)
+                        val hourValue1 = view.findViewById<TextView>(R.id.hour_value_1)
+                        val hourUp = view.findViewById<ImageButton>(R.id.hour_up)
+                        val hourDown = view.findViewById<ImageButton>(R.id.hour_down)
+                        handleTime(hourUp, hourValue10, hourValue1, 1, { v -> v < 23 })
+                        handleTime(hourDown, hourValue10, hourValue1, -1, { v -> v > 0 })
 
                         bottomSheet.show()
                     }
                 )
                 todayDrink.adapter = adapter
                 setListViewHeightBasedOnItems(todayDrink)
+            }
+        }
+    }
+
+    fun handleValue(
+        button: ImageButton,
+        textView: TextView,
+        increment: Int,
+        expression: (Int) -> Boolean
+    ) {
+        button.setOnClickListener {
+            val value = textView.text.toString().toInt()
+            if (expression(value)) textView.text = (value + increment).toString()
+        }
+    }
+
+    fun handleTime(
+        button: ImageButton,
+        decimal: TextView,
+        unit: TextView,
+        increment: Int,
+        expression: (Int) -> Boolean
+    ) {
+        button.setOnClickListener {
+            val value10 = decimal.text.toString().toInt() * 10
+            val value1 = unit.text.toString().toInt()
+            val sum = value10 + value1
+            if (expression(sum)) {
+                val value = (sum + increment).toString().padStart(2, '0')
+                decimal.text = value[0].toString()
+                unit.text = value[1].toString()
             }
         }
     }

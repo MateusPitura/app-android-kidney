@@ -16,7 +16,7 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="5"
+        android:columnCount="4"
         android:orientation="horizontal"
         android:rowCount="1">
 
@@ -30,10 +30,6 @@
             android:padding="4dp"
             android:scaleType="center"
             android:src="@drawable/keyboard_control_key" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
         <ImageButton
             android:id="@+id/amount_up_100"
@@ -79,14 +75,6 @@
             android:textSize="32dp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="."
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="32dp" />
-
-        <TextView
             android:id="@+id/amount_value_100"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -126,10 +114,6 @@
             android:padding="4dp"
             android:scaleType="center"
             android:src="@drawable/keyboard_arrow_down" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
         <ImageButton
             android:id="@+id/amount_down_100"
@@ -182,24 +166,14 @@
         android:rowCount="1">
 
         <ImageButton
-            android:id="@+id/hour_up_10"
+            android:id="@+id/hour_up"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_marginHorizontal="8dp"
             android:background="@android:color/transparent"
             android:padding="4dp"
-            android:scaleType="center"
-            android:src="@drawable/keyboard_control_key" />
-
-        <ImageButton
-            android:id="@+id/hour_up_1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginHorizontal="8dp"
-            android:background="@android:color/transparent"
-            android:padding="4dp"
+            android:layout_columnSpan="2"
             android:scaleType="center"
             android:src="@drawable/keyboard_control_key" />
 
@@ -279,24 +253,14 @@
             android:textSize="32dp" />
 
         <ImageButton
-            android:id="@+id/hour_down_10"
+            android:id="@+id/hour_down"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_columnWeight="1"
             android:layout_marginHorizontal="8dp"
             android:background="@android:color/transparent"
             android:padding="4dp"
-            android:scaleType="center"
-            android:src="@drawable/keyboard_arrow_down" />
-
-        <ImageButton
-            android:id="@+id/hour_down_1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_columnWeight="1"
-            android:layout_marginHorizontal="8dp"
-            android:background="@android:color/transparent"
-            android:padding="4dp"
+            android:layout_columnSpan="2"
             android:scaleType="center"
             android:src="@drawable/keyboard_arrow_down" />
 
