@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
@@ -179,7 +180,7 @@ class MainActivity : AppCompatActivity() {
                         deleteDrink.setOnClickListener {
                             lifecycleScope.launch {
                                 db.drinkDao().deleteById(drink.id)
-                                Snackbar.make(
+                                val snackbar = Snackbar.make(
                                     rootView,
                                     "Registro removido",
                                     Snackbar.LENGTH_LONG
@@ -211,7 +212,17 @@ class MainActivity : AppCompatActivity() {
                                             R.color.black
                                         )
                                     )
-                                    .show()
+
+                                val snackbarView = snackbar.view
+                                val textView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+                                val actionView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+
+                                val customFont = ResourcesCompat.getFont(this@MainActivity, R.font.ubuntu)
+                                textView.typeface = customFont
+                                actionView.typeface = customFont
+
+
+                                snackbar.show()
                                 bottomSheet.dismiss()
                             }
                         }

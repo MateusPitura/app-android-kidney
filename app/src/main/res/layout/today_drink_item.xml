@@ -6,6 +6,7 @@
     android:orientation="horizontal">
 
     <TextView
+        android:fontFamily="@font/ubuntu"
         android:id="@+id/milliliters"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -15,6 +16,7 @@
         android:textSize="16dp" />
 
     <TextView
+        android:fontFamily="@font/ubuntu"
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
