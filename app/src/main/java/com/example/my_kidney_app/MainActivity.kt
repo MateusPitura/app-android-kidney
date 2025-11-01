@@ -1,5 +1,7 @@
 package com.example.my_kidney_app
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.view.View
@@ -12,6 +14,7 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -24,7 +27,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-
 
 class MainActivity : AppCompatActivity() {
     private lateinit var db: AppDataBase
@@ -76,6 +78,18 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                1
+            )
+        }
+
         db = AppDataBase.getDatabase(this)
 
         rootView = findViewById<ScrollView>(R.id.main)
@@ -111,7 +125,8 @@ class MainActivity : AppCompatActivity() {
             db.drinkDao().getTodayAmount().collectLatest { amount ->
                 var percent = 0f
                 if (amount !== null) {
-                    percent = if (amount >= 2400) 1f else amount / 2400.toFloat() // 2400.toFloat() evita truncamento
+                    percent =
+                        if (amount >= 2400) 1f else amount / 2400.toFloat() // 2400.toFloat() evita truncamento
                 }
                 amountBarParams.matchConstraintPercentWidth = percent
                 amountPercent.text = "${(percent * 100).toInt()}%"
@@ -188,6 +203,12 @@ class MainActivity : AppCompatActivity() {
                                         ContextCompat.getColor(
                                             this@MainActivity,
                                             R.color.white
+                                        )
+                                    )
+                                    .setBackgroundTint(
+                                        ContextCompat.getColor(
+                                            this@MainActivity,
+                                            R.color.black
                                         )
                                     )
                                     .show()
