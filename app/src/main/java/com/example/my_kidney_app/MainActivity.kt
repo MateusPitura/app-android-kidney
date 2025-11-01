@@ -7,13 +7,16 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ListView
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -25,6 +28,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: AppDataBase
     private lateinit var todayDrink: ListView
     private lateinit var addWater: Button
+    private lateinit var deleteDrink: Button
+    private lateinit var rootView: ScrollView
+
     private val amountValues = arrayOf(
         R.id.amount_value_1000,
         R.id.amount_value_100,
@@ -64,6 +70,8 @@ class MainActivity : AppCompatActivity() {
 
         db = AppDataBase.getDatabase(this)
 
+        rootView = findViewById<ScrollView>(R.id.main)
+
         val img = findViewById<ImageView>(R.id.kidney)
         addWater = findViewById<Button>(R.id.add_water)
         todayDrink = findViewById<ListView>(R.id.today_drinks)
@@ -85,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            db.drinkDao().getAll().collectLatest { items ->
+            db.drinkDao().getTodayDrinks().collectLatest { items ->
                 val adapter = DrinkAdapter(
                     this@MainActivity,
                     items,
@@ -117,8 +125,27 @@ class MainActivity : AppCompatActivity() {
                         val hourValue1 = view.findViewById<TextView>(R.id.hour_value_1)
                         val hourUp = view.findViewById<ImageButton>(R.id.hour_up)
                         val hourDown = view.findViewById<ImageButton>(R.id.hour_down)
+                        hourValue10.text = timeParsed[0].toString()
+                        hourValue1.text = timeParsed[1].toString()
                         handleTime(hourUp, hourValue10, hourValue1, 1, { v -> v < 23 })
                         handleTime(hourDown, hourValue10, hourValue1, -1, { v -> v > 0 })
+
+                        deleteDrink = view.findViewById<Button>(R.id.deleteDrink)
+                        deleteDrink.setOnClickListener {
+                            lifecycleScope.launch {
+                                db.drinkDao().deleteById(drink.id)
+                                Snackbar.make(rootView, "Registro removido", Snackbar.LENGTH_LONG)
+                                    .setAction("Desfazer") {
+                                        val newEntity = Drink(milliliters = drink.milliliters, timestamp = drink.timestamp)
+                                        lifecycleScope.launch {
+                                            db.drinkDao().insert(newEntity)
+                                        }
+                                    }
+                                    .setActionTextColor(ContextCompat.getColor(this@MainActivity, R.color.yellow))
+                                    .show()
+                                bottomSheet.dismiss()
+                            }
+                        }
 
                         bottomSheet.show()
                     }

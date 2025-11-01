@@ -1,6 +1,7 @@
 package com.example.my_kidney_app
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
@@ -14,5 +15,7 @@ interface DrinkDao {
         WHERE date(datetime(timestamp / 1000, 'unixepoch', 'localtime')) = date('now', 'localtime')
         ORDER BY timestamp DESC  
     """)
-    fun getAll(): Flow<List<Drink>>
+    fun getTodayDrinks(): Flow<List<Drink>>
+    @Query("DELETE FROM drink WHERE id = :id")
+    suspend fun deleteById(id: Int)
 }
