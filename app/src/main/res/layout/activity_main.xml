@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:background="@drawable/solid_shadow"
+                android:background="@drawable/solid_shadow_pink"
                 android:padding="16dp"
                 android:text=""
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -40,29 +40,6 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/notifications" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/solid_shadow_yellow"
-                android:orientation="horizontal"
-                android:paddingHorizontal="3dp"
-                android:paddingVertical="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.151"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.161">
-
-                <TextView
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:text="Mateus, confira a dica do dia!"
-                    android:textAlignment="center"
-                    android:textColor="@color/dark_yellow"
-                    android:textSize="12dp" />
             </LinearLayout>
 
             <ImageView
@@ -85,7 +62,7 @@
             android:layout_height="20dp"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
-            android:background="@drawable/solid_shadow"
+            android:background="@drawable/solid_shadow_pink"
             android:orientation="horizontal">
 
             <View
@@ -141,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
-            android:background="@drawable/solid_shadow"
+            android:background="@drawable/solid_shadow_pink"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -149,10 +126,11 @@
                 android:id="@+id/add_water"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/blue"
+                android:background="@drawable/ripple_solid_shadow_blue"
                 android:text="Adicionar 500 ml"
                 android:textColor="@color/white"
                 android:textSize="16dp"
+                app:backgroundTint="@null"
                 app:cornerRadius="16dp"
                 app:icon="@drawable/add_circle"
                 app:iconGravity="textEnd"
@@ -165,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
-            android:background="@drawable/solid_shadow"
+            android:background="@drawable/solid_shadow_pink"
             android:orientation="horizontal"
             android:padding="16dp">
 
@@ -199,7 +177,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="8dp"
-            android:background="@drawable/solid_shadow"
+            android:background="@drawable/solid_shadow_pink"
             android:orientation="vertical"
             android:padding="16dp">
 
@@ -219,6 +197,12 @@
                 android:divider="@null"
                 android:dividerHeight="0dp"
                 android:nestedScrollingEnabled="false" />
+
+            <fragment
+                android:id="@+id/empty_today_drink"
+                android:name="com.example.my_kidney_app.EmptyTodayDrink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </LinearLayout>

@@ -303,11 +303,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
-            android:background="@drawable/ripple_button_shadow_yellow"
+            android:background="@drawable/ripple_solid_shadow_yellow"
             android:elevation="0dp"
+            android:textAllCaps="false"
             android:stateListAnimator="@null"
             android:text="Salvar"
-            android:textAllCaps="false"
             android:textColor="@color/dark_yellow"
             android:textSize="16dp" />
 
@@ -316,7 +316,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="8dp"
-            android:background="@drawable/solid_shadown_red"
+            android:background="@drawable/ripple_solid_shadow_red"
             android:elevation="0dp"
             android:stateListAnimator="@null"
             android:text="Remover"

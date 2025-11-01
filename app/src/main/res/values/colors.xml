@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#FFFFFFFF</color>
+    <color name="black">#171717</color>
+
     <color name="light_pink">#FEE8DB</color>
     <color name="pink">#FDD8C8</color>
     <color name="dark_pink">#F4B7A5</color>
+
     <color name="light_blue">#74A7C4</color>
     <color name="blue">#0E6BA8</color>
     <color name="dark_blue">#062B40</color>
+    <color name="ripple_blue">#33FFFFFF</color>
+
     <color name="dark_yellow">#8B580A</color>
     <color name="yellow">#EFC98E</color>
     <color name="light_yellow">#F8E2B2</color>
+    <color name="ripple_yellow">#33000000</color>
+
     <color name="red">#E36A58</color>
     <color name="dark_red">#702121</color>
-    <color name="black">#171717</color>
+    <color name="ripple_red">#33B33B2A</color>
 </resources>

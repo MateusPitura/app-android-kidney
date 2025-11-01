@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var amountPercent: TextView
     private lateinit var amountTotal: TextView
     private lateinit var kidney: ImageView
+    private lateinit var emptyView: View
 
     private val amountValues = arrayOf(
         R.id.amount_value_1000,
@@ -80,12 +81,15 @@ class MainActivity : AppCompatActivity() {
         rootView = findViewById<ScrollView>(R.id.main)
         kidney = findViewById<ImageView>(R.id.kidney)
         addWater = findViewById<Button>(R.id.add_water)
+        emptyView = findViewById<View>(R.id.empty_today_drink)
         todayDrink = findViewById<ListView>(R.id.today_drinks)
         amountBar = findViewById<View>(R.id.amount_bar)
         amountPercent = findViewById<TextView>(R.id.amount_percent)
         amountTotal = findViewById<TextView>(R.id.amount_total)
 
         (kidney.drawable as? Animatable)?.start() // Inicia a animação dos olhos
+
+        todayDrink.emptyView = emptyView
 
         addWater.setOnClickListener {
             val newEntity = Drink(milliliters = 400)
@@ -178,6 +182,12 @@ class MainActivity : AppCompatActivity() {
                                         ContextCompat.getColor(
                                             this@MainActivity,
                                             R.color.yellow
+                                        )
+                                    )
+                                    .setTextColor(
+                                        ContextCompat.getColor(
+                                            this@MainActivity,
+                                            R.color.white
                                         )
                                     )
                                     .show()

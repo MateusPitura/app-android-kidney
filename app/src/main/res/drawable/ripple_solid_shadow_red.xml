@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/dark_yellow">
+    android:color="@color/ripple_red">
 
-    <item android:drawable="@drawable/button_shadow_yellow" />
+    <item android:drawable="@drawable/solid_shadow_red" />
 </ripple>
