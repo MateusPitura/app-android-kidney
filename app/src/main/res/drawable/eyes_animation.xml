@@ -1,6 +1,0 @@
-<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/kidney">
-    <target
-        android:name="eyes_group"
-        android:animation="@animator/eyes" />
-</animated-vector>

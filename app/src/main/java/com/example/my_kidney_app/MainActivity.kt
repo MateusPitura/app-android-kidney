@@ -129,8 +129,21 @@ class MainActivity : AppCompatActivity() {
                     percent =
                         if (amount >= 2400) 1f else amount / 2400.toFloat() // 2400.toFloat() evita truncamento
                 }
+
                 amountBarParams.matchConstraintPercentWidth = percent
-                amountPercent.text = "${(percent * 100).toInt()}%"
+                val percentParsed = (percent * 100).toInt()
+                if(percentParsed <= 1){
+                    kidney.setImageResource(R.drawable.kidney_very_bad)
+                } else if(percentParsed <= 25){
+                    kidney.setImageResource(R.drawable.kidney_bad)
+                } else if(percentParsed <= 50){
+                    kidney.setImageResource(R.drawable.kidney_default)
+                }else if(percentParsed <= 75){
+                    kidney.setImageResource(R.drawable.kidney_good)
+                }else {
+                    kidney.setImageResource(R.drawable.kidney_very_good)
+                }
+                amountPercent.text = "$percentParsed%"
                 amountTotal.text = "${amount ?: 0} / 2.400 ml"
 
                 amountBar.layoutParams = amountBarParams

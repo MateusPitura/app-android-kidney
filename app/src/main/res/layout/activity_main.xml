@@ -44,12 +44,12 @@
 
             <ImageView
                 android:id="@+id/kidney"
-                android:layout_width="300dp"
-                android:layout_height="300dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginVertical="8dp"
-                android:src="@drawable/eyes_animation"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
