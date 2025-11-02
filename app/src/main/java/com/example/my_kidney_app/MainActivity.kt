@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var amountTotal: TextView
     private lateinit var kidney: ImageView
     private lateinit var emptyView: View
-    private lateinit var notifications: ImageButton
 
     private val amountValues = arrayOf(
         R.id.amount_value_1000,
@@ -107,25 +106,10 @@ class MainActivity : AppCompatActivity() {
         amountBar = findViewById<View>(R.id.amount_bar)
         amountPercent = findViewById<TextView>(R.id.amount_percent)
         amountTotal = findViewById<TextView>(R.id.amount_total)
-        notifications = findViewById<ImageButton>(R.id.notifications)
 
         (kidney.drawable as? Animatable)?.start() // Inicia a animação dos olhos
 
         todayDrink.emptyView = emptyView
-
-        var silentMode = false
-        notifications.setOnClickListener {
-            silentMode = !silentMode
-            if (silentMode) {
-                vibratePhone(this)
-                notifications.setImageResource(R.drawable.notifications_off)
-                notifications.setBackgroundResource(R.drawable.solid_shadow_red)
-            } else {
-                notifications.setImageResource(R.drawable.notifications)
-                notifications.setBackgroundResource(R.drawable.solid_shadow_pink)
-            }
-
-        }
 
         addWater.setOnClickListener {
             val newEntity = Drink(milliliters = 500)
@@ -358,24 +342,5 @@ class MainActivity : AppCompatActivity() {
         params.height = totalHeight
         listView.layoutParams = params
         listView.requestLayout()
-    }
-
-    fun vibratePhone(context: Context, duration: Long = 200) {
-        val vibrator = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            val vibratorManager =
-                context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-            vibratorManager.defaultVibrator
-        } else {
-            @Suppress("DEPRECATION")
-            context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        }
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val effect = VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE)
-            vibrator.vibrate(effect)
-        } else {
-            @Suppress("DEPRECATION")
-            vibrator.vibrate(duration)
-        }
     }
 }
