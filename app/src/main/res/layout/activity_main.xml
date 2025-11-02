@@ -21,26 +21,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
+            <ImageButton
                 android:id="@+id/notifications"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:background="@drawable/solid_shadow_pink"
                 android:padding="16dp"
-                android:text=""
+                android:src="@drawable/notifications"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/notifications" />
-            </LinearLayout>
+                app:layout_constraintVertical_bias="0" />
 
             <ImageView
                 android:id="@+id/kidney"
@@ -48,8 +42,8 @@
                 android:layout_height="250dp"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginBottom="8dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -79,11 +73,11 @@
                 app:layout_constraintWidth_percent="0.4" />
 
             <TextView
-                android:fontFamily="@font/ubuntu"
                 android:id="@+id/amount_percent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
+                android:fontFamily="@font/ubuntu"
                 android:text="40%"
                 android:textColor="@color/dark_red"
                 android:textSize="12dp"
@@ -96,11 +90,11 @@
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
-                android:fontFamily="@font/ubuntu"
                 android:id="@+id/amount_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
+                android:fontFamily="@font/ubuntu"
                 android:text="1.200 / 2.400 ml"
                 android:textColor="@color/dark_red"
                 android:textSize="12dp"
@@ -124,11 +118,11 @@
             android:padding="16dp">
 
             <com.google.android.material.button.MaterialButton
-                android:fontFamily="@font/ubuntu"
                 android:id="@+id/add_water"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ripple_solid_shadow_blue"
+                android:fontFamily="@font/ubuntu"
                 android:text="Adicionar 500 ml"
                 android:textColor="@color/white"
                 android:textSize="16dp"
@@ -150,10 +144,10 @@
             android:padding="16dp">
 
             <TextView
-                android:fontFamily="@font/ubuntu"
                 android:id="@+id/alarm_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu"
                 android:text="Próximo lembrete"
                 android:textColor="@color/dark_blue"
                 android:textSize="16dp"
@@ -166,10 +160,10 @@
                 android:layout_weight="1" />
 
             <TextView
-                android:fontFamily="@font/ubuntu"
                 android:id="@+id/alarm_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu"
                 android:text="15:00"
                 android:textColor="@color/dark_blue"
                 android:textSize="16dp"
@@ -186,10 +180,10 @@
             android:padding="16dp">
 
             <TextView
-                android:fontFamily="@font/ubuntu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:fontFamily="@font/ubuntu"
                 android:text="Hoje"
                 android:textColor="@color/dark_blue"
                 android:textSize="16dp"

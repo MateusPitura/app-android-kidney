@@ -28,6 +28,11 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
+import android.content.Context
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var db: AppDataBase
@@ -41,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var amountTotal: TextView
     private lateinit var kidney: ImageView
     private lateinit var emptyView: View
+    private lateinit var notifications: ImageButton
 
     private val amountValues = arrayOf(
         R.id.amount_value_1000,
@@ -101,10 +107,25 @@ class MainActivity : AppCompatActivity() {
         amountBar = findViewById<View>(R.id.amount_bar)
         amountPercent = findViewById<TextView>(R.id.amount_percent)
         amountTotal = findViewById<TextView>(R.id.amount_total)
+        notifications = findViewById<ImageButton>(R.id.notifications)
 
         (kidney.drawable as? Animatable)?.start() // Inicia a animação dos olhos
 
         todayDrink.emptyView = emptyView
+
+        var silentMode = false
+        notifications.setOnClickListener {
+            silentMode = !silentMode
+            if (silentMode) {
+                vibratePhone(this)
+                notifications.setImageResource(R.drawable.notifications_off)
+                notifications.setBackgroundResource(R.drawable.solid_shadow_red)
+            } else {
+                notifications.setImageResource(R.drawable.notifications)
+                notifications.setBackgroundResource(R.drawable.solid_shadow_pink)
+            }
+
+        }
 
         addWater.setOnClickListener {
             val newEntity = Drink(milliliters = 500)
@@ -132,15 +153,15 @@ class MainActivity : AppCompatActivity() {
 
                 amountBarParams.matchConstraintPercentWidth = percent
                 val percentParsed = (percent * 100).toInt()
-                if(percentParsed <= 1){
+                if (percentParsed <= 1) {
                     kidney.setImageResource(R.drawable.kidney_very_bad)
-                } else if(percentParsed <= 25){
+                } else if (percentParsed <= 25) {
                     kidney.setImageResource(R.drawable.kidney_bad)
-                } else if(percentParsed <= 50){
+                } else if (percentParsed <= 50) {
                     kidney.setImageResource(R.drawable.kidney_default)
-                }else if(percentParsed <= 75){
+                } else if (percentParsed <= 75) {
                     kidney.setImageResource(R.drawable.kidney_good)
-                }else {
+                } else {
                     kidney.setImageResource(R.drawable.kidney_very_good)
                 }
                 amountPercent.text = "$percentParsed%"
@@ -227,10 +248,13 @@ class MainActivity : AppCompatActivity() {
                                     )
 
                                 val snackbarView = snackbar.view
-                                val textView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-                                val actionView = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+                                val textView =
+                                    snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+                                val actionView =
+                                    snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
 
-                                val customFont = ResourcesCompat.getFont(this@MainActivity, R.font.ubuntu)
+                                val customFont =
+                                    ResourcesCompat.getFont(this@MainActivity, R.font.ubuntu)
                                 textView.typeface = customFont
                                 actionView.typeface = customFont
 
@@ -334,5 +358,24 @@ class MainActivity : AppCompatActivity() {
         params.height = totalHeight
         listView.layoutParams = params
         listView.requestLayout()
+    }
+
+    fun vibratePhone(context: Context, duration: Long = 200) {
+        val vibrator = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            val vibratorManager =
+                context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            vibratorManager.defaultVibrator
+        } else {
+            @Suppress("DEPRECATION")
+            context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        }
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            val effect = VibrationEffect.createOneShot(duration, VibrationEffect.DEFAULT_AMPLITUDE)
+            vibrator.vibrate(effect)
+        } else {
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(duration)
+        }
     }
 }
