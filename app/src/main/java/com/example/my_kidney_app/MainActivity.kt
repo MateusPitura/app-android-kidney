@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.ListView
-import android.widget.ScrollView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -28,10 +27,6 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
-import android.content.Context
 
 
 class MainActivity : AppCompatActivity() {
@@ -40,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var addWater: Button
     private lateinit var deleteDrink: Button
     private lateinit var editDrink: Button
-    private lateinit var rootView: ScrollView
+    private lateinit var rootView: View
     private lateinit var amountBar: View
     private lateinit var amountPercent: TextView
     private lateinit var amountTotal: TextView
@@ -98,10 +93,10 @@ class MainActivity : AppCompatActivity() {
 
         db = AppDataBase.getDatabase(this)
 
-        rootView = findViewById<ScrollView>(R.id.main)
+        rootView = findViewById<View>(R.id.main)
         kidney = findViewById<ImageView>(R.id.kidney)
         addWater = findViewById<Button>(R.id.add_water)
-        emptyView = findViewById<View>(R.id.empty_today_drink)
+        emptyView = findViewById<View>(R.id.fragment_empty_today_drink)
         todayDrink = findViewById<ListView>(R.id.today_drinks)
         amountBar = findViewById<View>(R.id.amount_bar)
         amountPercent = findViewById<TextView>(R.id.amount_percent)

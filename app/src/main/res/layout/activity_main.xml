@@ -10,7 +10,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,16 +22,16 @@
             android:layout_height="wrap_content">
 
             <fragment
-                android:id="@+id/fragment_notifications"
+                android:id="@+id/fragment_nav_fab"
+                android:name="com.example.my_kidney_app.NavFab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0"
-                android:name="com.example.my_kidney_app.SilentButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                app:layout_constraintVertical_bias="0" />
 
             <ImageView
                 android:id="@+id/kidney"
@@ -131,41 +131,40 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginVertical="8dp"
-            android:background="@drawable/solid_shadow_pink"
-            android:orientation="horizontal"
-            android:padding="16dp">
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_marginHorizontal="16dp"-->
+        <!--            android:layout_marginVertical="8dp"-->
+        <!--            android:background="@drawable/solid_shadow_pink"-->
+        <!--            android:orientation="horizontal"-->
+        <!--            android:padding="16dp">-->
 
-            <TextView
-                android:id="@+id/alarm_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ubuntu"
-                android:text="Próximo lembrete"
-                android:textColor="@color/dark_blue"
-                android:textSize="16dp"
-                android:textStyle="bold" />
+        <!--            <TextView-->
+        <!--                android:id="@+id/alarm_text"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:fontFamily="@font/ubuntu"-->
+        <!--                android:text="Próximo lembrete"-->
+        <!--                android:textColor="@color/dark_blue"-->
+        <!--                android:textSize="16dp"-->
+        <!--                android:textStyle="bold" />-->
 
-            <!-- Comporta-se como um space-between -->
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+        <!--            <View-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="0dp"-->
+        <!--                android:layout_weight="1" />-->
 
-            <TextView
-                android:id="@+id/alarm_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ubuntu"
-                android:text="15:00"
-                android:textColor="@color/dark_blue"
-                android:textSize="16dp"
-                android:textStyle="bold" />
-        </LinearLayout>
+        <!--            <TextView-->
+        <!--                android:id="@+id/alarm_time"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:fontFamily="@font/ubuntu"-->
+        <!--                android:text="15:00"-->
+        <!--                android:textColor="@color/dark_blue"-->
+        <!--                android:textSize="16dp"-->
+        <!--                android:textStyle="bold" />-->
+        <!--        </LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -195,7 +194,7 @@
                 android:nestedScrollingEnabled="false" />
 
             <fragment
-                android:id="@+id/empty_today_drink"
+                android:id="@+id/fragment_empty_today_drink"
                 android:name="com.example.my_kidney_app.EmptyTodayDrink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
