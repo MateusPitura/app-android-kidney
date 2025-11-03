@@ -32,7 +32,6 @@ import java.util.Locale
 class MainActivity : AppCompatActivity() {
     private lateinit var db: AppDataBase
     private lateinit var todayDrink: ListView
-    private lateinit var addWater: Button
     private lateinit var deleteDrink: Button
     private lateinit var editDrink: Button
     private lateinit var rootView: View
@@ -95,7 +94,6 @@ class MainActivity : AppCompatActivity() {
 
         rootView = findViewById<View>(R.id.main)
         kidney = findViewById<ImageView>(R.id.kidney)
-        addWater = findViewById<Button>(R.id.add_water)
         emptyView = findViewById<View>(R.id.fragment_empty_today_drink)
         todayDrink = findViewById<ListView>(R.id.today_drinks)
         amountBar = findViewById<View>(R.id.amount_bar)
@@ -105,13 +103,6 @@ class MainActivity : AppCompatActivity() {
         (kidney.drawable as? Animatable)?.start() // Inicia a animação dos olhos
 
         todayDrink.emptyView = emptyView
-
-        addWater.setOnClickListener {
-            val newEntity = Drink(milliliters = 500)
-            lifecycleScope.launch {
-                db.drinkDao().insert(newEntity)
-            }
-        }
 
         val bottomSheet = BottomSheetDialog(this, R.style.MyBottomSheetDialogTheme)
         val view = layoutInflater.inflate(R.layout.bottom_sheet, null)

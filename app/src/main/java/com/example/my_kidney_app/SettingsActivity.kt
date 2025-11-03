@@ -45,11 +45,15 @@ class SettingsActivity : AppCompatActivity() {
             val cupSize = cupSizeInput.text.toString().toIntOrNull()
             val todayGoal = todayGoalInput.text.toString().toIntOrNull()
 
-            if (cupSize != null && cupSize > 0 && cupSize < 10000 && todayGoal != null && todayGoal > 0 && todayGoal < 10000) {
+            if (cupSize != null && cupSize > 0 && cupSize < 10000) {
                 edit.putInt(Utils().cupSizeKey, cupSize)
-                edit.putInt(Utils().todayGoalKey, todayGoal)
-                edit.apply()
             }
+
+            if (todayGoal != null && todayGoal > 0 && todayGoal < 10000) {
+                edit.putInt(Utils().todayGoalKey, todayGoal)
+            }
+
+            edit.apply()
 
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
