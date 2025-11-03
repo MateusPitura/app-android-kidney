@@ -20,7 +20,7 @@ class NavSettings : Fragment() {
         button = view.findViewById<ImageButton>(R.id.navSettings)
 
         button.setOnClickListener {
-            val intent = Intent(requireContext(), SettingActivity::class.java)
+            val intent = Intent(requireContext(), SettingsActivity::class.java)
             startActivity(intent)
         }
 
