@@ -35,10 +35,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var deleteDrink: Button
     private lateinit var editDrink: Button
     private lateinit var rootView: View
-    private lateinit var amountBar: View
-    private lateinit var amountPercent: TextView
-    private lateinit var amountTotal: TextView
-    private lateinit var kidney: ImageView
     private lateinit var emptyView: View
 
     private val amountValues = arrayOf(
@@ -93,14 +89,8 @@ class MainActivity : AppCompatActivity() {
         db = AppDataBase.getDatabase(this)
 
         rootView = findViewById<View>(R.id.main)
-        kidney = findViewById<ImageView>(R.id.kidney)
         emptyView = findViewById<View>(R.id.fragment_empty_today_drink)
         todayDrink = findViewById<ListView>(R.id.today_drinks)
-        amountBar = findViewById<View>(R.id.amount_bar)
-        amountPercent = findViewById<TextView>(R.id.amount_percent)
-        amountTotal = findViewById<TextView>(R.id.amount_total)
-
-        (kidney.drawable as? Animatable)?.start() // Inicia a animação dos olhos
 
         todayDrink.emptyView = emptyView
 
@@ -109,36 +99,6 @@ class MainActivity : AppCompatActivity() {
         bottomSheet.setContentView(view)
         view.findViewById<Button>(R.id.closeButton).setOnClickListener {
             bottomSheet.dismiss()
-        }
-
-        val amountBarParams = amountBar.layoutParams as ConstraintLayout.LayoutParams
-
-        lifecycleScope.launch {
-            db.drinkDao().getTodayAmount().collectLatest { amount ->
-                var percent = 0f
-                if (amount !== null) {
-                    percent =
-                        if (amount >= 2400) 1f else amount / 2400.toFloat() // 2400.toFloat() evita truncamento
-                }
-
-                amountBarParams.matchConstraintPercentWidth = percent
-                val percentParsed = (percent * 100).toInt()
-                if (percentParsed <= 1) {
-                    kidney.setImageResource(R.drawable.kidney_very_bad)
-                } else if (percentParsed <= 25) {
-                    kidney.setImageResource(R.drawable.kidney_bad)
-                } else if (percentParsed <= 50) {
-                    kidney.setImageResource(R.drawable.kidney_default)
-                } else if (percentParsed <= 75) {
-                    kidney.setImageResource(R.drawable.kidney_good)
-                } else {
-                    kidney.setImageResource(R.drawable.kidney_very_good)
-                }
-                amountPercent.text = "$percentParsed%"
-                amountTotal.text = "${amount ?: 0} / 2400 ml"
-
-                amountBar.layoutParams = amountBarParams
-            }
         }
 
         lifecycleScope.launch {
@@ -329,4 +289,6 @@ class MainActivity : AppCompatActivity() {
         listView.layoutParams = params
         listView.requestLayout()
     }
+
+    fun getKidneyView(): ImageView? = findViewById(R.id.kidney)
 }

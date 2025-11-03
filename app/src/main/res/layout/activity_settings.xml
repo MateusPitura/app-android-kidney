@@ -75,7 +75,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="500"
+                    android:hint=""
+                    android:fontFamily="@font/ubuntu"
                     android:inputType="number"
                     android:layout_marginRight="4dp"
                     android:textColor="@color/black"
@@ -109,12 +110,13 @@
                     android:layout_weight="1" />
 
                 <EditText
+                    android:fontFamily="@font/ubuntu"
                     android:id="@+id/today_goal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
                     android:background="@null"
-                    android:hint="2000"
+                    android:hint=""
                     android:inputType="number"
                     android:textColor="@color/black"
                     android:textSize="16dp" />
