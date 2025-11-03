@@ -144,7 +144,7 @@ class MainActivity : AppCompatActivity() {
                     kidney.setImageResource(R.drawable.kidney_very_good)
                 }
                 amountPercent.text = "$percentParsed%"
-                amountTotal.text = "${amount ?: 0} / 2.400 ml"
+                amountTotal.text = "${amount ?: 0} / 2400 ml"
 
                 amountBar.layoutParams = amountBarParams
             }

@@ -22,8 +22,8 @@
             android:layout_height="wrap_content">
 
             <fragment
-                android:id="@+id/fragment_nav_fab"
-                android:name="com.example.my_kidney_app.NavFab"
+                android:id="@+id/fragment_nav_settings"
+                android:name="com.example.my_kidney_app.NavSettings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:fontFamily="@font/ubuntu"
-                android:text="40%"
+                android:text=""
                 android:textColor="@color/dark_red"
                 android:textSize="12dp"
                 android:textStyle="bold"
@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="8dp"
                 android:fontFamily="@font/ubuntu"
-                android:text="1.200 / 2.400 ml"
+                android:text=""
                 android:textColor="@color/dark_red"
                 android:textSize="12dp"
                 android:textStyle="bold"
