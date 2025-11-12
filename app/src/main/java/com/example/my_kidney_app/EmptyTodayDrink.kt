@@ -40,6 +40,7 @@ class EmptyTodayDrink : Fragment() {
     ): View {
         val view = inflater.inflate(R.layout.fragment_empty_today_drink, container, false)
 
+        // Escolhe a mensagem do dia aleatoriamente
         val randomIndex = (0 until waterTips.size).random()
         todayMessage = view.findViewById<TextView>(R.id.empty_message)
         todayMessage.text = waterTips[randomIndex]
@@ -47,10 +48,10 @@ class EmptyTodayDrink : Fragment() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+            ) == PackageManager.PERMISSION_GRANTED // Verifica se tem permissão de Fine Location
         ) {
-            getLastLocation({ temperature ->
-                if (temperature !== null && temperature >= 30f) {
+            getTemperature({ temperature ->
+                if (temperature !== null && temperature >= 10f) {
                     todayMessage.text =
                         "Hoje está um dia quente, com temperatura de $temperature°C! Beba mais água para manter-se hidratado"
                 }
@@ -60,13 +61,13 @@ class EmptyTodayDrink : Fragment() {
         return view
     }
 
-    @SuppressLint("MissingPermission")
-    private fun getLastLocation(callback: (Double?) -> Unit) {
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+    @SuppressLint("MissingPermission") // As permissões são requisitadas em quem chama
+    private fun getTemperature(callback: (Double?) -> Unit) {
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext()) // API para buscar a localização
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location: Location? ->
-                if (location != null) {
-                    fetchTemperature(location.latitude, location.longitude, callback)
+                if (location != null) { // Se havia alguma localização cacheada
+                    fetchTemperature(location.latitude, location.longitude, callback) // Busca a temperatura com base na lat e lon
                 } else {
                     requestLocationUpdate()
                 }
@@ -75,20 +76,21 @@ class EmptyTodayDrink : Fragment() {
 
     @SuppressLint("MissingPermission")
     fun requestLocationUpdate() {
-        val locationRequest = LocationRequest.Builder(
-            Priority.PRIORITY_HIGH_ACCURACY,
-            10000
+        val locationRequest = LocationRequest.Builder( // Define como a localização será requisitada
+            Priority.PRIORITY_HIGH_ACCURACY, // GPS
+            10000 // 10 seconds
         ).build()
 
-        val locationCallback = object : LocationCallback() {
-            override fun onLocationResult(result: LocationResult) {
-                fusedLocationClient.removeLocationUpdates(this)
+        val locationCallback = object : LocationCallback() { // Sobreescreve um metodo do LocationCallback
+            override fun onLocationResult(result: LocationResult) { // Quando uma nova localização está disponível
+                fusedLocationClient.removeLocationUpdates(this) // Para de ouvir a atualizações
             }
         }
-        fusedLocationClient.requestLocationUpdates(
+
+        fusedLocationClient.requestLocationUpdates( // Efetiva a requisição de localização
             locationRequest,
             locationCallback,
-            Looper.getMainLooper()
+            Looper.getMainLooper() // Garante que roda na thread principal
         )
     }
 

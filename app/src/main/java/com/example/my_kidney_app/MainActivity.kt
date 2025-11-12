@@ -78,11 +78,11 @@ class MainActivity : AppCompatActivity() {
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
-        ) {
+        ) { // Verifica e pede permissão de localização
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                1
+                1 // Request Code, pode ser qualquer um nesse caso
             )
         }
 
@@ -92,43 +92,40 @@ class MainActivity : AppCompatActivity() {
         emptyView = findViewById<View>(R.id.fragment_empty_today_drink)
         todayDrink = findViewById<ListView>(R.id.today_drinks)
 
-        todayDrink.emptyView = emptyView
+        todayDrink.emptyView = emptyView // Adiciona o emptyView ao listView
 
         val bottomSheet = BottomSheetDialog(this, R.style.MyBottomSheetDialogTheme)
-        val view = layoutInflater.inflate(R.layout.bottom_sheet, null)
+        val view = layoutInflater.inflate(R.layout.bottom_sheet, null) // Dá acesso ao layout do bottom sheet
         bottomSheet.setContentView(view)
         view.findViewById<Button>(R.id.closeButton).setOnClickListener {
             bottomSheet.dismiss()
-        }
+        } // Fecha o bottom sheet ao clicar em "Cancelar"
 
         lifecycleScope.launch {
             db.drinkDao().getTodayDrinks().collectLatest { items ->
                 val adapter = DrinkAdapter(
-                    this@MainActivity,
+                    this@MainActivity, // Especifica qual o contexto
                     items,
                     { drink ->
-                        val millilitersParsed = drink.milliliters.toString().padStart(4, '0')
+                        val millilitersParsed = drink.milliliters.toString().padStart(4, '0') // Formata a quantidade
                         for (i in amountValues.indices) {
                             val upButton = view.findViewById<ImageButton>(amountButtons[i])
                             val downButton =
-                                view.findViewById<ImageButton>(amountButtons[i + 4])
+                                view.findViewById<ImageButton>(amountButtons[i + 4]) // 4 é offset para pegar os botões de decrementar
                             val value = view.findViewById<TextView>(amountValues[i])
                             value.text = millilitersParsed[i].toString()
-                            handleValue(upButton, value, 1, { v -> v < 9 })
-                            handleValue(downButton, value, -1, { v -> v > 0 })
+                            handleValue(upButton, value, 1, { v -> v < 9 }) // Não permite maior que 9
+                            handleValue(downButton, value, -1, { v -> v > 0 }) // Não permite menor que 0
                         }
 
-                        val timeParsed = SimpleDateFormat(
-                            "HHmm",
-                            Locale.getDefault()
-                        ).format(Date(drink.timestamp))
+                        val timeParsed = Utils().formatDate("HHmm", drink.timestamp)
                         for (i in timeValues.indices) {
                             val upButton = view.findViewById<ImageButton>(timeButtons[i])
-                            val downButton = view.findViewById<ImageButton>(timeButtons[i + 2])
+                            val downButton = view.findViewById<ImageButton>(timeButtons[i + 2]) // 2 é offset para pegar botões de decrementar dos minutos
                             val value = view.findViewById<TextView>(timeValues[i])
                             value.text = timeParsed[i + 2].toString()
-                            handleValue(upButton, value, 1, { v -> v < (if (i == 0) 5 else 9) })
-                            handleValue(downButton, value, -1, { v -> v > 0 })
+                            handleValue(upButton, value, 1, { v -> v < (if (i == 0) 5 else 9) }) // Se for a 1ª casa dos minutos o limite é 5, caso contrário é 9
+                            handleValue(downButton, value, -1, { v -> v > 0 }) // Deve ser maior que 0
                         }
 
                         val hourValue10 = view.findViewById<TextView>(R.id.hour_value_10)
@@ -137,8 +134,8 @@ class MainActivity : AppCompatActivity() {
                         val hourDown = view.findViewById<ImageButton>(R.id.hour_down)
                         hourValue10.text = timeParsed[0].toString()
                         hourValue1.text = timeParsed[1].toString()
-                        handleTime(hourUp, hourValue10, hourValue1, 1, { v -> v < 23 })
-                        handleTime(hourDown, hourValue10, hourValue1, -1, { v -> v > 0 })
+                        handleTime(hourUp, hourValue10, hourValue1, 1, { v -> v < 23 }) // Não permite maior que 23
+                        handleTime(hourDown, hourValue10, hourValue1, -1, { v -> v > 0 }) // Não permite menor que 0
 
                         deleteDrink = view.findViewById<Button>(R.id.deleteDrink)
                         deleteDrink.setOnClickListener {
@@ -177,6 +174,7 @@ class MainActivity : AppCompatActivity() {
                                         )
                                     )
 
+                                // Customiza a fonte da snackbar
                                 val snackbarView = snackbar.view
                                 val textView =
                                     snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
@@ -185,9 +183,9 @@ class MainActivity : AppCompatActivity() {
 
                                 val customFont =
                                     ResourcesCompat.getFont(this@MainActivity, R.font.ubuntu)
+
                                 textView.typeface = customFont
                                 actionView.typeface = customFont
-
 
                                 snackbar.show()
                                 bottomSheet.dismiss()
@@ -208,11 +206,14 @@ class MainActivity : AppCompatActivity() {
                                 view.findViewById<TextView>(R.id.minute_value_10)
                             val minuteValue1 = view.findViewById<TextView>(R.id.minute_value_1)
 
+                            // Converte para horas
                             val hour = hourValue10.text.toString()
                                 .toInt() * 10 + hourValue1.text.toString().toInt()
+                            // Converte para minutos
                             val minute = minuteValue10.text.toString()
                                 .toInt() * 10 + minuteValue1.text.toString().toInt()
 
+                            // Pega o horário atual e adicona as horas e minutos
                             val calendar = Calendar.getInstance()
                             calendar.timeInMillis = drink.timestamp
                             calendar.set(Calendar.HOUR_OF_DAY, hour)
@@ -233,7 +234,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 )
                 todayDrink.adapter = adapter
-                setListViewHeightBasedOnItems(todayDrink)
+                setListViewHeightBasedOnItems(todayDrink) // Define a altura com base na quantidade de itens
             }
         }
     }
@@ -263,8 +264,8 @@ class MainActivity : AppCompatActivity() {
             val sum = value10 + value1
             if (expression(sum)) {
                 val value = (sum + increment).toString().padStart(2, '0')
-                decimal.text = value[0].toString()
-                unit.text = value[1].toString()
+                decimal.text = value[0].toString() // Pega a primeira casa da hora
+                unit.text = value[1].toString() // Pega a segunda casa da hora
             }
         }
     }
@@ -275,15 +276,16 @@ class MainActivity : AppCompatActivity() {
         var totalHeight = 0
         for (i in 0 until listAdapter.count) {
             val listItem = listAdapter.getView(i, null, listView)
-            listItem.measure(
+            listItem.measure( // Mede manualmente a altura de cada item da list view
                 View.MeasureSpec.makeMeasureSpec(listView.width, View.MeasureSpec.UNSPECIFIED),
                 View.MeasureSpec.UNSPECIFIED
             )
             totalHeight += listItem.measuredHeight
         }
 
-        totalHeight += listView.dividerHeight * (listAdapter.count - 1)
+        totalHeight += listView.dividerHeight * (listAdapter.count - 1) // Soma o espaço dos dividers
 
+        // Requisita a atualização do layout
         val params = listView.layoutParams
         params.height = totalHeight
         listView.layoutParams = params

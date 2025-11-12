@@ -51,19 +51,19 @@ class ProgressBar : Fragment() {
                 Utils().log(requireActivity().toString())
             }
 
-            (kidney?.drawable as? Animatable)?.start() // Inicia a animação dos olhos
-
-            val amountBarParams = amountBar.layoutParams as ConstraintLayout.LayoutParams
+            val amountBarParams = amountBar.layoutParams as ConstraintLayout.LayoutParams // Pego o layout para poder alterar via código
 
             lifecycleScope.launch {
                 db.drinkDao().getTodayAmount().collectLatest { amount ->
                     var percent = 0f
                     if (amount !== null) {
                         percent =
-                            if (amount >= todayGoal) 1f else amount / todayGoal.toFloat() // toFloat evita truncamento
+                            if (amount >= todayGoal) 1f else amount / todayGoal.toFloat() // toFloat evita truncamento, no máximo 100%
                     }
 
-                    amountBarParams.matchConstraintPercentWidth = percent
+                    amountBarParams.matchConstraintPercentWidth = percent // Defino quantos % a barra ficara preenchida
+
+                    // Mudo a imagem do Kidney baseado na porcentagem
                     val percentParsed = (percent * 100).toInt()
                     if (percentParsed <= 1) {
                         kidney?.setImageResource(R.drawable.kidney_very_bad)
@@ -76,6 +76,8 @@ class ProgressBar : Fragment() {
                     } else {
                         kidney?.setImageResource(R.drawable.kidney_very_good)
                     }
+
+                    // Defino o texto na mão
                     amountPercent.text = "$percentParsed%"
                     amountTotal.text = "${amount ?: 0} / $todayGoal ml"
 

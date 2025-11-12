@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
+// Permite customizar cada item do ListView
 class DrinkAdapter(
     private val context: Context,
     private val drinks: List<Drink>,
@@ -27,8 +25,7 @@ class DrinkAdapter(
 
         milliliters.text = "${drink.milliliters} ml"
 
-        val timeParsed = SimpleDateFormat("HH:mm", Locale.getDefault())
-            .format(Date(drink.timestamp))
+        val timeParsed = Utils().formatDate("HH:mm", drink.timestamp)
         time.text = timeParsed
 
         view.setOnClickListener {

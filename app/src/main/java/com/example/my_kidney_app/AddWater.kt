@@ -21,7 +21,7 @@ class AddWater : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_water, container, false)
 
-        db = AppDataBase.getDatabase(requireContext())
+        db = AppDataBase.getDatabase(requireContext()) // requiredContext retorna o contexto da activity relacionado ao fragmento
         val sp: SharedPreferences = requireContext().getSharedPreferences(
             Utils().sharedPreferencesKey,
             Context.MODE_PRIVATE

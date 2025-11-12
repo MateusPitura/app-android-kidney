@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
+// Define as configurações pelo Shared Preferences
 class SettingsActivity : AppCompatActivity() {
     private lateinit var goBackButton: ImageButton
     private lateinit var cupSizeInput: EditText

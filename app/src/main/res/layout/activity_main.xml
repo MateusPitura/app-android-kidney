@@ -60,41 +60,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <!--        <LinearLayout-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginHorizontal="16dp"-->
-        <!--            android:layout_marginVertical="8dp"-->
-        <!--            android:background="@drawable/solid_shadow_pink"-->
-        <!--            android:orientation="horizontal"-->
-        <!--            android:padding="16dp">-->
-
-        <!--            <TextView-->
-        <!--                android:id="@+id/alarm_text"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:fontFamily="@font/ubuntu"-->
-        <!--                android:text="Próximo lembrete"-->
-        <!--                android:textColor="@color/dark_blue"-->
-        <!--                android:textSize="16dp"-->
-        <!--                android:textStyle="bold" />-->
-
-        <!--            <View-->
-        <!--                android:layout_width="0dp"-->
-        <!--                android:layout_height="0dp"-->
-        <!--                android:layout_weight="1" />-->
-
-        <!--            <TextView-->
-        <!--                android:id="@+id/alarm_time"-->
-        <!--                android:layout_width="wrap_content"-->
-        <!--                android:layout_height="wrap_content"-->
-        <!--                android:fontFamily="@font/ubuntu"-->
-        <!--                android:text="15:00"-->
-        <!--                android:textColor="@color/dark_blue"-->
-        <!--                android:textSize="16dp"-->
-        <!--                android:textStyle="bold" />-->
-        <!--        </LinearLayout>-->
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

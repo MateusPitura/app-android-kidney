@@ -2,10 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Necessário para poder pedir a fine location -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Para chamar API -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Para poder pedir a fine location -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- Latitude e longitude -->
 
     <application
         android:allowBackup="true"
